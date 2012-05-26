@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "redis": "*",
-    "fakeredis": "*"
+    "fakeredis": "*",
+    "async": "*"
   }
 }

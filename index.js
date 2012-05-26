@@ -1,7 +1,8 @@
 var fs = require('fs'),
     path = require('path'),
     EventEmitter = require('events').EventEmitter,
-    redis = require('redis');
+    redis = require('redis'),
+    async = require('async');
 
 module.exports = function(responderId, config, ss) {
   var name, port, host, db, purgeDelay, expireDelay, beatDelay, logging;
@@ -29,7 +30,17 @@ module.exports = function(responderId, config, ss) {
   }
 
   ss[name].isConnected = function(sid, cb) {
-    db.hexists(name, meta.sessionId, cb);
+    db.hexists(name, sid, cb);
+  }
+
+  ss[name].allConnected = function(callback) {
+    db.hkeys(name, function(err, res) {
+      async.map(res, function(key, cb) {
+        ss.session.find(key, null, function(sess) {
+          cb(null, sess);
+        });
+      }, function(err, ret) { callback(ret) });
+    });
   }
 
   ss[name].purge = function() {

@@ -57,6 +57,10 @@ All events return a session instance. The available events are:
 Also available are:
 
 ```javascript
+ss.heartbeat.allConnected(function(sessions) {
+  //sessions is an array of all active sessions
+});
+
 ss.heartbeat.isConnected(sessionId, function(err, res) {
   //res == 0 if sessionId is considered idle or disconnected
   //res == 1 if sessionId is active 
