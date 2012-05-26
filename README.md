@@ -36,45 +36,48 @@ And if you want to stop the heartbeat process:
 ss.heartbeatStop();
 ```
 
-This is also trigger a disconnected event on the server straight away, and might be useful to call on window.onunload.
+This will also trigger a disconnected event on the server straight away, and might be useful to call on window.onunload.
 
 ### Server Usage
 
-After adding the responder, you can listen for events with ss.heartbeat (or ss.api.heartbeat from app.js):
+After adding the responder, you can listen for events on ss.heartbeat (or ss.api.heartbeat from app.js):
 
 ```javascript
 ss.heartbeat.on('disconnect', function(session) {
-  //session has session.userId etc
+  //session has session.userId, etc
 });
 ```
 
 All events return a session instance. The available events are:
 
-* `disconnect` - Fired when a client has not sent a heartbeat recently enough, or when a client calls ss.heartbeatStop()
-* `connect` - Fired when a client calls ss.heartbeatStart() to begin the heartbeat process
+* `disconnect` - Fired when a client has not sent a heartbeat recently enough, or when a client calls ss.heartbeatStop().
+* `connect` - Fired when a client calls ss.heartbeatStart() to begin the heartbeat process.
 * `reconnect` - Fired when a client calls ss.heartbeatStart() to begin the heartbeat process and the server believes the client is still connected. For example if the user refreshes the page or opens a new tab with the same cookie.
 
 Also available are:
 
 ```javascript
 ss.heartbeat.isConnected(sessionId, function(err, res) {
-  //res == 0 if sessionId is not connected
-  //res == 1 if sessionId is connected
+  //res == 0 if sessionId is considered idle or disconnected
+  //res == 1 if sessionId is active 
 });
 
-ss.purge(); //Immediately force a check for expired sessions, triggering any disconnect events
+ss.purge(); //Immediately force a check for inactive sessions, triggering any disconnect events
 ```
 
 ### Server Configuration
 
 The available configuration options are:
 
-* `name` - The name used in logging, as a redis prefix, and registered in ss.api. Default is `heartbeat`
-* `logging` - The logging provided in the server console. 0: No logging. 1: Logging of connect, reconnect, and disconnect events. 2: Logging of all events, including heartbeats. Default is 0.
+* `name` - The name used in logging, as a redis prefix, and registered in ss.api. Default is `heartbeat`.
+* `logging` - The logging provided in the server console. Default is 0.
+  0: No logging. 
+  1: Logging of connect, reconnect, and disconnect events. 
+  2: Logging of all events, including heartbeats.
 * `purgeDelay` - How often, in seconds, the server checks for inactive sessions and emits disconnect events. Default is 25.
 * `beatDelay` - How often, in seconds, the client sends a heartbeat. Default is 30.
 * `expireDelay` - How long, in seconds, a heartbeat is considered valid. Should be __longer__ than beatDelay. If this time has passed since the last beat when a purge occurs, the session is considered inactive and the disconnect event is emitted. Default is 40.
-* `host` - Redis host. Default is `127.0.0.1`
-* `port` - Redis port. Default is `6479`
+* `host` - Redis host. Default is `127.0.0.1`.
+* `port` - Redis port. Default is `6479`.
 * `options` - Redis options.
-* `fakeRedis` - If `true` no redis server is required, for development convenience. Default is `false`
+* `fakeRedis` - If `true` no redis server is required, for development convenience. Default is `false`.
