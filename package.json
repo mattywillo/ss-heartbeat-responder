@@ -2,7 +2,7 @@
   "name": "ss-heartbeat-responder",
   "description": "Heartbeat Request Responder for SocketStream",
   "author": "Matthew Willoughby <mattfredwill@gmail.com>",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "engines": {
     "node": ">= 0.6.0"
