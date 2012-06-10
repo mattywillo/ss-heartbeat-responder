@@ -66,7 +66,7 @@ ss.heartbeat.isConnected(sessionId, function(err, res) {
   //res == 1 if sessionId is active 
 });
 
-ss.purge(); //Immediately force a check for inactive sessions, triggering any disconnect events
+ss..heartbeat.purge(); //Immediately force a check for inactive sessions, triggering any disconnect events
 ```
 
 ### Server Configuration
