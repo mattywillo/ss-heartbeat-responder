@@ -11,13 +11,13 @@ Get it from GitHub or from npm:
 Include the responder in app.js:
 
 ```javascript
-ss.responder.add(require('ss-heartbeat-responder'));
+ss.responders.add(require('ss-heartbeat-responder'));
 ```
 
 Or, to load with options:
 
 ```javascript
-ss.responder.add(require('ss-heartbeat-responder'), { logging: 1, fakeRedis: true });
+ss.responders.add(require('ss-heartbeat-responder'), { logging: 1, fakeRedis: true });
 ```
 
 See below for a full list of configuration options. I recommend reviewing the `purgeDelay`, `beatDelay`, and `expireDelay` options as the defaults may not be appropriate for your app.
