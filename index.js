@@ -18,6 +18,10 @@ module.exports = function(responderId, config, ss) {
   options = config && config.options || {};
   db = (config && config.fakeRedis) ? require('fakeredis').createClient() : redis.createClient(port, host, options);
 
+  if(ss.env == 'production') {
+     db.auth(config.pass);
+  }
+
   ss.client.send('mod', 'heartbeat-responder', loadFile('responder.js'));
   ss.client.send('code', 'init', "require('heartbeat-responder')(" + responderId + ", {beatDelay:" + beatDelay + "}, require('socketstream').send(" + responderId + "));");
 
