@@ -26,7 +26,6 @@ module.exports = function(responderId, config, ss) {
       conn.select(config.db);
   }
 
-  conn.debug_mode = true;
 
   ss.client.send('mod', 'heartbeat-responder', loadFile('responder.js'));
   ss.client.send('code', 'init', "require('heartbeat-responder')(" + responderId + ", {beatDelay:" + beatDelay + "}, require('socketstream').send(" + responderId + "));");
