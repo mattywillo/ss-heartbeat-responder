@@ -22,7 +22,7 @@ module.exports = function(responderId, config, ss) {
      conn.auth(config.pass);
   }
 
-  if (config && config.db) {
+  if (config && config.db && !config.fakeRedis) {
       conn.select(config.db);
   }
 
