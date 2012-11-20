@@ -85,5 +85,5 @@ The available configuration options are:
 * `port` - Redis port. Default is `6479`.
 * `options` - Redis options.
 * `fakeRedis` - If `true` no redis server is required, for development convenience. Default is `false`.
-* `pass` - Password for Redis authentication
-* `db` - Redis database to `SELECT`
+* `pass` - Password for Redis authentication.
+* `db` - Redis database to `SELECT`.
