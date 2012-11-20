@@ -18,11 +18,11 @@ module.exports = function(responderId, config, ss) {
   options = config && config.options || {};
   conn = (config && config.fakeRedis) ? require('fakeredis').createClient() : redis.createClient(port, host, options);
 
-  if (config.pass) {
+  if (config && config.pass) {
      conn.auth(config.pass);
   }
 
-  if (config.db) {
+  if (config && config.db) {
       conn.select(config.db);
   }
 
